@@ -78,6 +78,8 @@ func CreateBudget(month time.Month, max float32) (*Budget, error) {
 		return nil, errReportIsFull
 	}
 	if _, hasEntry := report[month]; hasEntry {
+		return nil, errDuplicateEntry
+	} else {
 
 		var newBudget *Budget
 
@@ -85,10 +87,7 @@ func CreateBudget(month time.Month, max float32) (*Budget, error) {
 		newBudget = &budget
 		report[month] = newBudget
 		return newBudget, nil
-	} else {
-		return nil, errDuplicateEntry
 	}
-
 }
 
 // GetBudget returns budget for given month
